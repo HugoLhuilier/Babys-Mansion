@@ -4,7 +4,7 @@
 #include "Component.h"
 
 
-class RigidBody {
+class RigidBody : public Component {
 public:
 
 private:

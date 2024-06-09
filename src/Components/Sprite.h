@@ -4,7 +4,7 @@
 #include "Component.h"
 
 
-class Sprite {
+class Sprite : public Component {
 public:
 
 private:

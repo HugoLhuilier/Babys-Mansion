@@ -6,8 +6,12 @@ class Object;
 
 class Component {
 public:
-    void update();
-    void init();
-    Object getObject();
-private:
+    Component(Object* nObject);
+    virtual void update() = 0;
+    virtual void init() = 0;
+
+    const Object* getObject(){ return object; }
+
+protected:
+    Object* object;
 };

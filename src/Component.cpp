@@ -2,15 +2,9 @@
 #include "Object.h"
 using namespace std;
 
-void update() {
 
+Component::Component(Object* nObject)
+{
+	object = nObject;
+	init();
 }
-
-void init() {
-
-}
-
-Object getObject() {
-	return Object();
-}
-
