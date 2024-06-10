@@ -4,7 +4,7 @@
 
 class SoundManager : public Component {
 public:
-	void setListener(const Object* nListener);
+	void setListener(Object* nListener);
 	void update() override;
 
 private:

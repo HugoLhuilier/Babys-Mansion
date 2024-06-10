@@ -1,4 +1,5 @@
-#include "object.h"
+#include "Object.h"
+#include "Game.h"
 #include "CameraController.h"
 
 using namespace std;

@@ -8,6 +8,7 @@
 
 class BabyController : public Component {
 public:
+
 private:
 	RigidBody* rb;
 	Object* player;

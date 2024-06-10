@@ -9,7 +9,7 @@ void SoundManager::update()
 	}
 }
 
-void SoundManager::setListener(const Object* nListener)
+void SoundManager::setListener(Object* nListener)
 {
 	listener = nListener;
 }

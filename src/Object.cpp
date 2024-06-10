@@ -26,13 +26,10 @@ const bool Object::hasTag(const std::string& tag)
 	return false;
 }
 
-template<typename T> T* Object::addComponent() {
-	static_assert(std::is_base_of<Component, T>::value, "addComponent : class type must be dedrived from Component");
-	unique_ptr<T> newComp = make_unique<T>(this);
-	T* res = newComp->get();
-	components.push_back(move(newComp));
+void Object::updatePos(sf::Vector2f newPos) {
+	pos = newPos;
 
-	game->addCompUpdateListener(res);
-
-	return res;
+	for (const auto& comp : components) {
+		comp->updatePos(newPos);
+	}
 }

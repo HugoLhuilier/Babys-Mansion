@@ -1,14 +1,16 @@
 #pragma once
 
 //#include "Object.h"
+#include<SFML/Graphics.hpp>
 
 class Object;
 
 class Component {
 public:
     Component(Object* nObject);
-    virtual void update() = 0;
-    virtual void init() = 0;
+    virtual void update();
+    virtual void init();
+    virtual void updatePos(sf::Vector2f);
 
     const Object* getObject(){ return object; }
 
