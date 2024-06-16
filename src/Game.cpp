@@ -166,6 +166,7 @@ void Game::loadMap() {
 	for (const auto& layer : layers) {
 		if (layer->getType() == tmx::Layer::Type::Tile) {
 			const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
+			string name = layer->getName();
 
 			// Iterate through the tiles
 			const auto& tiles = tileLayer.getTiles();
@@ -179,7 +180,16 @@ void Game::loadMap() {
 
 					sf::Vector2f pos(x * 16, y * 16);
 					Object* tuile = createObject(pos);
-					tuile->makeItWall(tileID);
+
+					if (name == "wall") {
+						tuile->makeItWall(tileID);
+					} else if (name == "floor") {
+						tuile->makeItFloor(tileID);
+					}
+					else if (name == "furniture") {
+						tuile->makeItFurniture(tileID);
+					}
+					
 				}
 			}
 		}

@@ -40,6 +40,16 @@ void Object::makeItWall(int textID) {
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
 	sprite->setTexture(game->getTexture(textID));
+}
 
-	//cout << "ID : " << textID << endl;
+void Object::makeItFloor(int textID) {
+	Sprite* sprite = addComponent<Sprite>(); 
+	sprite->updateLayer(-1); 
+	sprite->setTexture(game->getTexture(textID)); 
+}
+
+void Object::makeItFurniture(int textID) {
+	Sprite* sprite = addComponent<Sprite>(); 
+	sprite->updateLayer(0); 
+	sprite->setTexture(game->getTexture(textID)); 
 }
