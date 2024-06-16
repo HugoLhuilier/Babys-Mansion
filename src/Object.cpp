@@ -1,6 +1,8 @@
 #include "Object.h"
 #include "Component.h"
 #include "Game.h"
+#include "Components/Sprite.h"
+#include <iostream>
 
 using namespace std;
 
@@ -32,4 +34,12 @@ void Object::updatePos(sf::Vector2f newPos) {
 	for (const auto& comp : components) {
 		comp->updatePos(newPos);
 	}
+}
+
+void Object::makeItWall(int textID) {
+	Sprite* sprite = addComponent<Sprite>();
+	sprite->updateLayer(0);
+	sprite->setTexture(game->getTexture(textID));
+
+	//cout << "ID : " << textID << endl;
 }

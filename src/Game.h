@@ -20,6 +20,8 @@ public:
     void addCompUpdateListener(Component* listener);
     void drawSprites();
 
+    sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
+
     sf::RenderWindow* getWindow() const { return win.get(); }
 
     ~Game();
@@ -30,6 +32,7 @@ private:
     std::vector<Component*> compUpdateListeners;
     std::multimap<int, Sprite*> spriteLayers;
     std::vector<sf::Texture> textures;
+    std::vector<sf::Texture> mapTextures;
 
     void update();
     void handleEvents();

@@ -27,6 +27,8 @@ public:
 
     void updatePos(sf::Vector2f newPos);
 
+    void makeItWall(int textID);
+
 private:
     sf::Vector2f pos;
     comp_t components;
