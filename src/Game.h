@@ -35,4 +35,5 @@ private:
     void handleEvents();
     void buildScene();
     void loadTextures();
+    void loadMap();
 };

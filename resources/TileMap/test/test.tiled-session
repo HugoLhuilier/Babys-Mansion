@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "test.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "4 BigSet bon.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "test.tmx": {
+            "scale": 1.8346874999999998,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 160.51779935275084,
+                "y": 160.5177993527508
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/leale/OneDrive/Bureau/TSP/2A/CSC4526/Babys-Mansion/resources/TileMap/test",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 20,
+    "openFiles": [
+        "4 BigSet bon.tsx",
+        "test.tmx"
+    ],
+    "project": "test.tiled-project",
+    "recentFiles": [
+        "4 BigSet bon.tsx",
+        "test.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
