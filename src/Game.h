@@ -1,14 +1,15 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-//#include "Object.h"
 #include <vector>
 #include "Component.h"
+#include "box2d/box2d.h"
 
 #define GAME_NAME "Baby's Mansion"
 
 class Object;
 class Sprite;
+class PlayerController;
 
 class Game {
 public:
@@ -20,7 +21,11 @@ public:
     void addCompUpdateListener(Component* listener);
     void drawSprites();
 
+    // Sets the new playerCtrl
+    void setPlayerCtrl(PlayerController* nPC);
+
     sf::RenderWindow* getWindow() const { return win.get(); }
+    b2World* getWorld() const { return world.get(); }
 
     ~Game();
 
@@ -31,8 +36,13 @@ private:
     std::multimap<int, Sprite*> spriteLayers;
     std::vector<sf::Texture> textures;
 
+    // Component to which instructions will be sent when moving the player (initialized to the last PlayerController componnent attached)
+    PlayerController* playerCtrl;
+
+    std::unique_ptr<b2World> world;
+
     void update();
     void handleEvents();
     void buildScene();
-    void loadTextures();
+    void loadTextures();    
 };

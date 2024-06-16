@@ -22,7 +22,7 @@ public:
     void addTag(const std::string& tag);
     const bool hasTag(const std::string& tag);
 
-    const sf::Vector2f getPos() { return pos; }
+    const sf::Vector2f getPos() const { return pos; }
     Game* getGame() const { return game; }
 
     void updatePos(sf::Vector2f newPos);

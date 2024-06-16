@@ -44,32 +44,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(box2d)
 
-
-add_subdirectory(mainLauncher)
-add_subdirectory(src)
-
-#
-# Include GoogleTest
-#
-FetchContent_Declare(
-        googletest
-        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
-)
-
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
-# enable_testing() must be in the source directory root (see cmake documentation at https://cmake.org/cmake/help/latest/command/enable_testing.html)
-# Otherwise, Visual Studio test explorer does not see unit tests (See ticket https://developercommunity.visualstudio.com/t/No-tests-discovered-for-googletest-and-C/1148799#T-ND1150621)
-include(GoogleTest)
-enable_testing()
-add_subdirectory(unitTests)
-
-
-
-
-
 #
 # Tmxlite : A simple FetchContent does not work We generate its library
 # in the same manner as GoogleTest
@@ -96,3 +70,26 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/tmxlite-src/tmxlite
                  ${CMAKE_CURRENT_BINARY_DIR}/tmxlite-build/tmxlite
                  EXCLUDE_FROM_ALL)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/tmxlite-src/tmxlite/include")
+
+
+add_subdirectory(mainLauncher)
+add_subdirectory(src)
+
+#
+# Include GoogleTest
+#
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+# enable_testing() must be in the source directory root (see cmake documentation at https://cmake.org/cmake/help/latest/command/enable_testing.html)
+# Otherwise, Visual Studio test explorer does not see unit tests (See ticket https://developercommunity.visualstudio.com/t/No-tests-discovered-for-googletest-and-C/1148799#T-ND1150621)
+include(GoogleTest)
+enable_testing()
+add_subdirectory(unitTests)
+

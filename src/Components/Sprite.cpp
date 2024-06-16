@@ -20,7 +20,6 @@ void Sprite::renderSprite() {
 void Sprite::updatePos(sf::Vector2f nPos)
 {
 	sprite.setPosition(nPos);
-	cout << "Sprite updatePos" << endl;
 }
 
 void Sprite::updateLayer(int nLayer) {

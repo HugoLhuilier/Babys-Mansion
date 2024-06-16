@@ -12,7 +12,7 @@ public:
     virtual void init();
     virtual void updatePos(sf::Vector2f);
 
-    const Object* getObject(){ return object; }
+    Object* getObject() const { return object; }
 
 protected:
     Object* object;
