@@ -3,7 +3,7 @@
 #include "Components/PlayerController.h"
 #include "Object.h"
 #include <iostream>
-#include <tmxlite/Map.hpp>
+#include "Components/CameraController.h"
 
 using namespace std;
 
@@ -148,6 +148,12 @@ void Game::buildScene()
 	Sprite* playerSprite = player->addComponent<Sprite>();
 	playerSprite->updateLayer(5);
 	playerSprite->setTexture(&textures[1]);
+
+	Object* cam = createObject(sf::Vector2f(0, 0));
+	CameraController* camC = cam->addComponent<CameraController>();
+	camC->setPlayer(player);
+	sf::Vector2f low(0, 0), up(500, 500);
+	camC->setBounds(low, up);
 }
 
 void Game::drawSprites() {
