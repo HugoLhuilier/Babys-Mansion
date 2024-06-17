@@ -5,11 +5,15 @@
 
 using namespace std;
 
-void Sprite::setTexture(sf::Texture* tex)
+void Sprite::setTexture(sf::Texture* tex, sf::Vector2f size)
 {
 	texture = tex;
 
 	sprite.setTexture(*texture);
+	
+	if (size != sf::Vector2f(0, 0)) {
+		sprite.setScale(sf::Vector2f(size.x / tex->getSize().x, size.y / tex->getSize().y));
+	}
 }
 
 void Sprite::renderSprite() {

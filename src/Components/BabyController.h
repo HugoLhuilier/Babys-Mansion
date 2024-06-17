@@ -7,6 +7,7 @@
 #include "StateMachine/RoamingState.h"
 #include "StateMachine/IdleState.h"
 #include "StateMachine/FollowingState.h"
+#include "Game.h"
 
 
 enum class StateTag {
@@ -34,7 +35,7 @@ public:
 private:
 	RigidBody* rb;
 	Object* player;
-	float speed = 50000;
+	float speed = PLAYER_SPEED * 0.7;
 
 	BaseState* curState;
 	RoamingState roamingState;

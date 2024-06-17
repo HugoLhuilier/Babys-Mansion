@@ -19,8 +19,13 @@ Game::Game(const sf::VideoMode &vMode)
 	win = make_unique<sf::RenderWindow>(vMode, GAME_NAME);
 	win->setVerticalSyncEnabled(true);
 
+	sf::View view = win->getView();
+	view.zoom(0.1);
+	win->setView(view);
+
 	b2Vec2 grav(0, 0);
 	world = make_unique<b2World>(grav);
+	world->SetContactListener(&contactListener);
 }
 
 Game::~Game() {}
@@ -67,12 +72,12 @@ void Game::loadTextures() {
 			mapTextures.push_back(tileTexture);
 		}
 	}
-	if (!text.loadFromFile("resources/sprites/test/bonhomme.png")) {
+	if (!text.loadFromFile("resources/sprites/player/player_dos.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
 
-	if (!text.loadFromFile("resources/sprites/test/fantome.png")) {
+	if (!text.loadFromFile("resources/sprites/baby/baby_gauche.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
@@ -156,34 +161,34 @@ void Game::buildScene()
 {
 	b2FixtureDef fix;
 	b2PolygonShape box;
-	box.SetAsBox(16, 16);
+	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
 
-	Object* testObject = createObject(sf::Vector2f(0, 0));
-	Sprite* spriteComp = testObject->addComponent<Sprite>();
-	RigidBody* rb1 = testObject->addComponent<RigidBody>();
-	rb1->createBody(b2_staticBody);
-	rb1->addFixture(box);
+	//Object* testObject = createObject(sf::Vector2f(0, 0));
+	//Sprite* spriteComp = testObject->addComponent<Sprite>();
+	//RigidBody* rb1 = testObject->addComponent<RigidBody>();
+	//rb1->createBody(b2_staticBody);
+	//rb1->addFixture(box);
 
-	Object* testObject2 = createObject(sf::Vector2f(32, 0));
-	Sprite* spriteComp2 = testObject2->addComponent<Sprite>();
-	RigidBody* rb2 = testObject2->addComponent<RigidBody>();
-	rb2->createBody(b2_staticBody);
-	rb2->addFixture(box);
+	//Object* testObject2 = createObject(sf::Vector2f(32, 0));
+	//Sprite* spriteComp2 = testObject2->addComponent<Sprite>();
+	//RigidBody* rb2 = testObject2->addComponent<RigidBody>();
+	//rb2->createBody(b2_staticBody);
+	//rb2->addFixture(box);
 
-	Object* testObject3 = createObject(sf::Vector2f(16, 16));
-	Sprite* spriteComp3 = testObject3->addComponent<Sprite>();
-	RigidBody* rb3 = testObject3->addComponent<RigidBody>();
-	rb3->createBody(b2_staticBody);
-	rb3->addFixture(box);
+	//Object* testObject3 = createObject(sf::Vector2f(16, 16));
+	//Sprite* spriteComp3 = testObject3->addComponent<Sprite>();
+	//RigidBody* rb3 = testObject3->addComponent<RigidBody>();
+	//rb3->createBody(b2_staticBody);
+	//rb3->addFixture(box);
 
-	spriteComp->updateLayer(0);
-	spriteComp->setTexture(&textures[0]);
-	spriteComp2->updateLayer(0);
-	spriteComp2->setTexture(&textures[0]);
-	spriteComp3->updateLayer(-1);
-	spriteComp3->setTexture(&textures[0]);
+	//spriteComp->updateLayer(0);
+	//spriteComp->setTexture(&textures[0]);
+	//spriteComp2->updateLayer(0);
+	//spriteComp2->setTexture(&textures[0]);
+	//spriteComp3->updateLayer(-1);
+	//spriteComp3->setTexture(&textures[0]);
 
-	Object* player = createObject(sf::Vector2f(-100, -100));
+	Object* player = createObject(sf::Vector2f(0, 0));
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
@@ -196,7 +201,7 @@ void Game::buildScene()
 	playCtrl->setRb(rb);
 	Sprite* playerSprite = player->addComponent<Sprite>();
 	playerSprite->updateLayer(5);
-	playerSprite->setTexture(&textures[1]);
+	playerSprite->setTexture(&textures[1], sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	Object* cam = createObject(sf::Vector2f(0, 0));
 	CameraController* camC = cam->addComponent<CameraController>();
@@ -204,10 +209,10 @@ void Game::buildScene()
 	sf::Vector2f low(0, 0), up(500, 500);
 	camC->setBounds(low, up);
 
-	Object* fantome = createObject(sf::Vector2f(-100, -100));
+	Object* fantome = createObject(sf::Vector2f(0, 0));
 	Sprite* fantSprite = fantome->addComponent<Sprite>();
 	fantSprite->updateLayer(5);
-	fantSprite->setTexture(&textures[2]);
+	fantSprite->setTexture(&textures[2], sf::Vector2f(BASE_SIZE, BASE_SIZE));
 	RigidBody* rbFant = fantome->addComponent<RigidBody>();
 	fix.isSensor = true;
 	rbFant->createBody(b2BodyType::b2_dynamicBody);
@@ -224,6 +229,11 @@ void Game::drawSprites() {
 	}
 
 	win->display();
+}
+
+void Game::lose()
+{
+	cout << "Perdu !!" << endl;
 }
 
 void Game::loadMap() {
@@ -252,7 +262,7 @@ void Game::loadMap() {
 					// Adjust the tileID to match the texture coordinates
 					tileID--;
 
-					sf::Vector2f pos(x * 16, y * 16);
+					sf::Vector2f pos(x * BASE_SIZE, y * BASE_SIZE);
 					Object* tuile = createObject(pos);
 
 					if (name == "wall") {
@@ -269,6 +279,8 @@ void Game::loadMap() {
 		}
 	}
 }
+
+
 void Game::setPlayerCtrl(PlayerController* nPC) {
 	playerCtrl = nPC;
 }
