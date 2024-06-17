@@ -5,6 +5,7 @@
     },
     "activeFile": "test.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "4 BigSet bon.tsx": {
@@ -12,11 +13,11 @@
             "scaleInEditor": 1
         },
         "test.tmx": {
-            "scale": 1.8346874999999998,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 160.51779935275084,
-                "y": 160.5177993527508
+                "x": 275.5,
+                "y": 1036.5
             }
         }
     },
@@ -31,8 +32,8 @@
     ],
     "project": "test.tiled-project",
     "recentFiles": [
-        "4 BigSet bon.tsx",
-        "test.tmx"
+        "test.tmx",
+        "4 BigSet bon.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

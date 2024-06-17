@@ -14,6 +14,8 @@ public:
 	void updateLayer(int nLayer);
 	void init() override;
 
+	void setOrigin(sf::Vector2f newOrig);
+
 private:
 	sf::Sprite sprite;
 	sf::Texture* texture;

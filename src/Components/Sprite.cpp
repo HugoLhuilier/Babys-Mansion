@@ -42,3 +42,8 @@ void Sprite::init()
 	win = object->getGame()->getWindow();
 	cout << "Sprite init" << endl;
 }
+
+void Sprite::setOrigin(sf::Vector2f newOrig)
+{
+	sprite.setOrigin(newOrig);
+}

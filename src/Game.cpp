@@ -11,6 +11,7 @@
 #include "Components/BabyController.h"
 #include "Components/SoundManager.h"
 #include "Components/BabySound.h"
+#include "Components/VisibComp.h"
 
 using namespace std;
 
@@ -78,6 +79,11 @@ void Game::loadTextures() {
 	textures.push_back(text);
 
 	if (!text.loadFromFile("resources/sprites/baby/baby_gauche.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/vision/rond_vision.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
@@ -188,7 +194,7 @@ void Game::buildScene()
 	//spriteComp3->updateLayer(-1);
 	//spriteComp3->setTexture(&textures[0]);
 
-	Object* player = createObject(sf::Vector2f(0, 0));
+	Object* player = createObject(sf::Vector2f(42 * BASE_SIZE, 62 * BASE_SIZE));
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
@@ -221,6 +227,14 @@ void Game::buildScene()
 	cont->setPlayer(player);
 	cont->setRb(rbFant);
 	BabySound* sound = fantome->addComponent<BabySound>();
+
+	Object* visib = createObject(sf::Vector2f(0, 0));
+	Sprite* visibSprite = visib->addComponent<Sprite>();
+	visibSprite->updateLayer(INT_MAX);
+	visibSprite->setTexture(&textures[3]);
+	visibSprite->setOrigin(sf::Vector2f(120, 120));
+	VisibComp* visibComp = visib->addComponent<VisibComp>();
+	visibComp->setPlayer(player);
 }
 
 void Game::drawSprites() {
@@ -269,8 +283,7 @@ void Game::loadMap() {
 						tuile->makeItWall(tileID);
 					} else if (name == "floor") {
 						tuile->makeItFloor(tileID);
-					}
-					else if (name == "furniture") {
+					} else if (name == "furniture") {
 						tuile->makeItFurniture(tileID);
 					}
 					
