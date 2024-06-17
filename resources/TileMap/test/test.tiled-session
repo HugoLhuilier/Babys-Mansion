@@ -13,11 +13,11 @@
             "scaleInEditor": 1
         },
         "test.tmx": {
-            "scale": 0.015625,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": -9440,
-                "y": 6176
+                "x": 275.5,
+                "y": 1036.5
             }
         }
     },
@@ -32,8 +32,8 @@
     ],
     "project": "test.tiled-project",
     "recentFiles": [
-        "4 BigSet bon.tsx",
-        "test.tmx"
+        "test.tmx",
+        "4 BigSet bon.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -11,6 +11,7 @@
 #include "Components/BabyController.h"
 #include "Components/SoundManager.h"
 #include "Components/BabySound.h"
+#include "Components/VisibComp.h"
 
 using namespace std;
 
@@ -73,6 +74,11 @@ void Game::loadTextures() {
 	textures.push_back(text);
 
 	if (!text.loadFromFile("resources/sprites/test/fantome.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/vision/rond_vision.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
@@ -216,6 +222,13 @@ void Game::buildScene()
 	cont->setPlayer(player);
 	cont->setRb(rbFant);
 	BabySound* sound = fantome->addComponent<BabySound>();
+
+	Object* visib = createObject(sf::Vector2f(0, 0));
+	Sprite* visibSprite = visib->addComponent<Sprite>();
+	visibSprite->updateLayer(INT_MAX);
+	visibSprite->setTexture(&textures[3]);
+	VisibComp* visibComp = visib->addComponent<VisibComp>();
+	visibComp->setPlayer(player);
 }
 
 void Game::drawSprites() {
