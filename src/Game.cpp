@@ -4,6 +4,9 @@
 #include "Object.h"
 #include <iostream>
 #include "Components/CameraController.h"
+#include "Components/BabyController.h"
+#include "Components/SoundManager.h"
+#include "Components/BabySound.h"
 
 using namespace std;
 
@@ -26,6 +29,11 @@ void Game::loadTextures() {
 	textures.push_back(text);
 
 	if (!text.loadFromFile("resources/sprites/test/bonhomme.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/test/fantome.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
@@ -139,6 +147,7 @@ void Game::buildScene()
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
+	AudioListener* audio = player->addComponent<AudioListener>();
 	
 	fix.shape = &box;
 	fix.density = 1;
@@ -154,6 +163,19 @@ void Game::buildScene()
 	camC->setPlayer(player);
 	sf::Vector2f low(0, 0), up(500, 500);
 	camC->setBounds(low, up);
+
+	Object* fantome = createObject(sf::Vector2f(-100, -100));
+	Sprite* fantSprite = fantome->addComponent<Sprite>();
+	fantSprite->updateLayer(5);
+	fantSprite->setTexture(&textures[2]);
+	RigidBody* rbFant = fantome->addComponent<RigidBody>();
+	fix.isSensor = true;
+	rbFant->createBody(b2BodyType::b2_dynamicBody);
+	rbFant->addFixture(fix);
+	BabyController* cont = fantome->addComponent<BabyController>();
+	cont->setPlayer(player);
+	cont->setRb(rbFant);
+	BabySound* sound = fantome->addComponent<BabySound>();
 }
 
 void Game::drawSprites() {
