@@ -70,3 +70,17 @@ void Object::makeItFurniture(int textID) {
 	rb->createBody(b2_staticBody); 
 	rb->addFixture(box); 
 }
+
+void Object::makeItLantern(int textID) {
+	Sprite* sprite = addComponent<Sprite>();
+	sprite->updateLayer(0);
+	sprite->setTexture(game->getTextureLantern(), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+
+	b2FixtureDef fix;
+	b2PolygonShape box;
+	box.SetAsBox(BASE_SIZE / 2, BASE_SIZE / 2);
+
+	RigidBody* rb = addComponent<RigidBody>();
+	rb->createBody(b2_staticBody);
+	rb->addFixture(box);
+}

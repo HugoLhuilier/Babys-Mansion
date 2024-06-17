@@ -87,6 +87,11 @@ void Game::loadTextures() {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/TileMap/test/lantern.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
 }
 
 void Game::startGame()
@@ -285,6 +290,9 @@ void Game::loadMap() {
 						tuile->makeItFloor(tileID);
 					} else if (name == "furniture") {
 						tuile->makeItFurniture(tileID);
+					}
+					else if (name == "lantern") {
+						tuile->makeItLantern(tileID);
 					}
 					
 				}
