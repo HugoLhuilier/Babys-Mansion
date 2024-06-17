@@ -8,7 +8,7 @@ class Sprite : public Component {
 public:
 	using Component::Component;
 
-	void setTexture(sf::Texture* tex);
+	void setTexture(sf::Texture* tex, sf::Vector2f size = sf::Vector2f(0, 0));
 	void updatePos(sf::Vector2f) override;
 	void renderSprite();
 	void updateLayer(int nLayer);

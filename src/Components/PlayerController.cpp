@@ -18,7 +18,11 @@ void PlayerController::update()
 {
 	if (rb) {
 		updateDirVec();
-		rb->addForce(appliedForce);
+		if (appliedForce.LengthSquared() == 0) {
+			rb->resetSpeed();
+		}
+		else 
+			rb->addForce(appliedForce);
 	}
 }
 
@@ -46,9 +50,13 @@ void PlayerController::updateDirVec()
 		if (dirVec.LengthSquared() != 0) {
 			dirVec.Normalize();
 			dirVec *= velocity;
-		}
 
-		appliedForce = dirVec - (velocity / 200) * rb->getBody()->GetLinearVelocity();
+			float speedDif = (dirVec - rb->getBody()->GetLinearVelocity()).Length();
+			appliedForce = 10 * speedDif * (dirVec - rb->getBody()->GetLinearVelocity());
+		}
+		else {
+			appliedForce.SetZero();
+		}
 	}
 }
 

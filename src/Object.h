@@ -9,6 +9,11 @@
 //class Game;
 //class Component;
 
+enum class Tag {
+    Player,
+    Baby
+};
+
 class Object {
     using comp_t = std::vector<std::unique_ptr<Component>>;
 
@@ -19,8 +24,8 @@ public:
     comp_t::iterator compEnd() { return components.end(); }
 
     template<typename T> T* addComponent();
-    void addTag(const std::string& tag);
-    const bool hasTag(const std::string& tag);
+    void addTag(const Tag tag);
+    const bool hasTag(const Tag tag);
 
     const sf::Vector2f getPos() const { return pos; }
     Game* getGame() const { return game; }
@@ -34,7 +39,7 @@ public:
 private:
     sf::Vector2f pos;
     comp_t components;
-    std::vector<std::string> tags;
+    std::vector<Tag> tags;
     Game* game;
 };
 

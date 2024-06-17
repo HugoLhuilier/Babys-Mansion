@@ -5,7 +5,7 @@ if(WIN32)
    file(COPY ${DYNAMIC_LIBS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif()
 
-target_link_libraries(mainLauncher PUBLIC src sfml-graphics tmxlite)
+target_link_libraries(mainLauncher PUBLIC src sfml-graphics tmxlite box2d)
 add_custom_target(copy-resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different ${CMAKE_SOURCE_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources)
 add_dependencies(mainLauncher copy-resources)

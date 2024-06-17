@@ -23,7 +23,9 @@ void RoamingState::update()
 		controller->switchState(StateTag::Idle);
 	}
 	else {
-		b2Vec2 appliedForce = roamDir - (controller->getSpeed() / 200) * controller->getRb()->getBody()->GetLinearVelocity();
+		float speedDif = controller->getSpeed() - controller->getRb()->getBody()->GetLinearVelocity().Length();
+
+		b2Vec2 appliedForce = 10 * speedDif * roamDir;
 		controller->getRb()->addForce(appliedForce);
 	}
 }

@@ -24,9 +24,13 @@ void FollowingState::update()
 	else {
 		sf::Vector2f dir = controller->getPlayer()->getPos() - controller->getObject()->getPos();
 		b2Vec2 followDir(dir.x, dir.y);
+		float speedDif = controller->getSpeed() - controller->getRb()->getBody()->GetLinearVelocity().Length();
+
 		followDir.Normalize();
 		followDir *= controller->getSpeed();
-		b2Vec2 appliedForce = followDir - (controller->getSpeed() / 200) * controller->getRb()->getBody()->GetLinearVelocity();
+
+		b2Vec2 appliedForce = 10 * speedDif * (followDir - controller->getRb()->getBody()->GetLinearVelocity());
+
 		controller->getRb()->addForce(appliedForce);
 	}
 }
