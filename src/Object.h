@@ -27,6 +27,10 @@ public:
 
     void updatePos(sf::Vector2f newPos);
 
+    void makeItWall(int textID);
+    void makeItFloor(int textID);
+    void makeItFurniture(int textID);
+
 private:
     sf::Vector2f pos;
     comp_t components;

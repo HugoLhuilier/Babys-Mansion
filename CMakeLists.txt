@@ -16,6 +16,13 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW) # This cmake_policy avoids warning by cmak
 
 cmake_policy(SET CMP0135 NEW) # This cmake_policy avoids warning by cmake when we fetch contents based on URL
 
+FetchContent_Declare(
+    pugixml
+    GIT_REPOSITORY https://github.com/zeux/pugixml.git
+    GIT_TAG v1.10
+)
+
+FetchContent_MakeAvailable(pugixml)
 
 if(APPLE)
     find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)

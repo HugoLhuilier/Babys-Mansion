@@ -21,6 +21,7 @@ public:
     void addCompUpdateListener(Component* listener);
     void drawSprites();
 
+    sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
     // Sets the new playerCtrl
     void setPlayerCtrl(PlayerController* nPC);
 
@@ -35,6 +36,7 @@ private:
     std::vector<Component*> compUpdateListeners;
     std::multimap<int, Sprite*> spriteLayers;
     std::vector<sf::Texture> textures;
+    std::vector<sf::Texture> mapTextures;
 
     // Component to which instructions will be sent when moving the player (initialized to the last PlayerController componnent attached)
     PlayerController* playerCtrl;
@@ -44,5 +46,6 @@ private:
     void update();
     void handleEvents();
     void buildScene();
-    void loadTextures();    
+    void loadTextures();
+    void loadMap();
 };
