@@ -175,7 +175,7 @@ void Game::buildScene()
 	spriteComp3->updateLayer(-1);
 	spriteComp3->setTexture(&textures[0]);
 
-	Object* player = createObject(sf::Vector2f(100, 100));
+	Object* player = createObject(sf::Vector2f(-100, -100));
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
