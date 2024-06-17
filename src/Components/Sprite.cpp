@@ -5,8 +5,7 @@
 
 using namespace std;
 
-void Sprite::setTexture(sf::Texture* tex, sf::Vector2f size)
-{
+void Sprite::setTexture(sf::Texture* tex, sf::Vector2f size) {
 	texture = tex;
 
 	sprite.setTexture(*texture);
@@ -21,8 +20,7 @@ void Sprite::renderSprite() {
 		win->draw(sprite);
 }
 
-void Sprite::updatePos(sf::Vector2f nPos)
-{
+void Sprite::updatePos(sf::Vector2f nPos) {
 	sprite.setPosition(nPos);
 }
 
@@ -37,13 +35,11 @@ void Sprite::updateLayer(int nLayer) {
 	game->addSprite(nLayer, this);
 }
 
-void Sprite::init()
-{
+void Sprite::init() {
 	win = object->getGame()->getWindow();
 	cout << "Sprite init" << endl;
 }
 
-void Sprite::setOrigin(sf::Vector2f newOrig)
-{
+void Sprite::setOrigin(sf::Vector2f newOrig) {
 	sprite.setOrigin(newOrig);
 }

@@ -15,8 +15,7 @@
 
 using namespace std;
 
-Game::Game(const sf::VideoMode &vMode)
-{
+Game::Game(const sf::VideoMode &vMode) {
 	win = make_unique<sf::RenderWindow>(vMode, GAME_NAME);
 	win->setVerticalSyncEnabled(true);
 
@@ -73,29 +72,33 @@ void Game::loadTextures() {
 			mapTextures.push_back(tileTexture);
 		}
 	}
+
+	//get player tile
 	if (!text.loadFromFile("resources/sprites/player/player_dos.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
 
+	//get baby tile
 	if (!text.loadFromFile("resources/sprites/baby/baby_gauche.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
 
+	//get image to control the vision 
 	if (!text.loadFromFile("resources/sprites/vision/rond_vision.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
 
+	//get lantern tile
 	if (!text.loadFromFile("resources/TileMap/test/lantern.png")) {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
 }
 
-void Game::startGame()
-{
+void Game::startGame() {
 	loadTextures();
 	loadMap(); 
 	buildScene();
@@ -121,20 +124,19 @@ void Game::startGame()
 	}
 }
 
-void Game::update()
-{
+void Game::update() {
+//update tous les composants selon le design pattern "observer"
 	for (auto& comp : compUpdateListeners) {
 		comp->update();
 	}
 }
 
-void Game::addCompUpdateListener(Component* listener)
-{
+void Game::addCompUpdateListener(Component* listener) {
+//ajoute les composants à la liste des "subscribers" du design pattern observer
 	compUpdateListeners.push_back(listener);
 }
 
-void Game::handleEvents()
-{
+void Game::handleEvents() {
 	sf::Event event;
 
 	while (win->pollEvent(event)) {
@@ -168,8 +170,7 @@ Object* Game::createObject(sf::Vector2f pos) {
 	return res;
 }
 
-void Game::buildScene()
-{
+void Game::buildScene() {
 	b2FixtureDef fix;
 	b2PolygonShape box;
 	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
@@ -243,6 +244,7 @@ void Game::buildScene()
 }
 
 void Game::drawSprites() {
+	//dessiner un sprite
 	for (auto& layer : spriteLayers) {
 		layer.second->renderSprite();
 	}
@@ -250,8 +252,8 @@ void Game::drawSprites() {
 	win->display();
 }
 
-void Game::lose()
-{
+void Game::lose() {
+	//lorsqu'on perd (c'est a dire le bébé nous attrape)
 	cout << "Perdu !!" << endl;
 }
 
