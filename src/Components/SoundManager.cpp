@@ -1,15 +1,17 @@
 #include "SoundManager.h"
 #include <SFML/Audio.hpp>
+#include <iostream>
 
-void SoundManager::update()
+using namespace std;
+
+void AudioListener::init()
 {
-	if (listener) {
-		sf::Vector2f pos = listener->getPos();
-		sf::Listener::setPosition(pos.x, pos.y, 0);
-	}
+	sf::Listener::setDirection(0, 0, -1);
+	cout << "AudioListener initialized" << endl;
 }
 
-void SoundManager::setListener(Object* nListener)
+void AudioListener::update()
 {
-	listener = nListener;
+	sf::Vector2f pos = object->getPos();
+	sf::Listener::setPosition(pos.x, 0, pos.y);
 }

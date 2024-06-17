@@ -2,11 +2,10 @@
 
 #include "Object.h"
 
-class SoundManager : public Component {
+class AudioListener : public Component {
 public:
-	void setListener(Object* nListener);
-	void update() override;
+	using Component::Component;
 
-private:
-	Object* listener;
+	void init() override;
+	void update() override;
 };
