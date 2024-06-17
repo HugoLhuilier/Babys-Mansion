@@ -1,11 +1,13 @@
 #include "Game.h"
 #include "Components/Sprite.h"
+#include "Components/PlayerController.h"
 #include "Object.h"
 #include <iostream>
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/TileSet.hpp>
+#include "Components/CameraController.h"
 
 using namespace std;
 
@@ -13,6 +15,9 @@ Game::Game(const sf::VideoMode &vMode)
 {
 	win = make_unique<sf::RenderWindow>(vMode, GAME_NAME);
 	win->setVerticalSyncEnabled(true);
+
+	b2Vec2 grav(0, 0);
+	world = make_unique<b2World>(grav);
 }
 
 Game::~Game() {}
@@ -59,6 +64,10 @@ void Game::loadTextures() {
 			mapTextures.push_back(tileTexture);
 		}
 	}
+	if (!text.loadFromFile("resources/sprites/test/bonhomme.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
 }
 
 void Game::startGame()
@@ -67,13 +76,23 @@ void Game::startGame()
 	loadMap(); 
 	buildScene();
 
+	sf::Clock clock;
+	sf::Time elapsed;
+
+	int32 velocityIterations = 6;
+	int32 positionIterations = 2;
+
 	while (win->isOpen()) {
+		elapsed = clock.restart();
+
 		win->clear();
 
 		handleEvents();
 
 		update();
-		
+
+		world->Step(elapsed.asSeconds(), velocityIterations, positionIterations);
+
 		drawSprites();
 	}
 }
@@ -127,14 +146,27 @@ Object* Game::createObject(sf::Vector2f pos) {
 
 void Game::buildScene()
 {
+	b2FixtureDef fix;
+	b2PolygonShape box;
+	box.SetAsBox(16, 16);
+
 	Object* testObject = createObject(sf::Vector2f(0, 0));
 	Sprite* spriteComp = testObject->addComponent<Sprite>();
+	RigidBody* rb1 = testObject->addComponent<RigidBody>();
+	rb1->createBody(b2_staticBody);
+	rb1->addFixture(box);
 
 	Object* testObject2 = createObject(sf::Vector2f(32, 0));
 	Sprite* spriteComp2 = testObject2->addComponent<Sprite>();
+	RigidBody* rb2 = testObject2->addComponent<RigidBody>();
+	rb2->createBody(b2_staticBody);
+	rb2->addFixture(box);
 
 	Object* testObject3 = createObject(sf::Vector2f(16, 16));
 	Sprite* spriteComp3 = testObject3->addComponent<Sprite>();
+	RigidBody* rb3 = testObject3->addComponent<RigidBody>();
+	rb3->createBody(b2_staticBody);
+	rb3->addFixture(box);
 
 	spriteComp->updateLayer(0);
 	spriteComp->setTexture(&textures[0]);
@@ -142,6 +174,26 @@ void Game::buildScene()
 	spriteComp2->setTexture(&textures[0]);
 	spriteComp3->updateLayer(-1);
 	spriteComp3->setTexture(&textures[0]);
+
+	Object* player = createObject(sf::Vector2f(100, 100));
+	PlayerController* playCtrl = player->addComponent<PlayerController>();
+	RigidBody* rb = player->addComponent<RigidBody>();
+	rb->createBody(b2BodyType::b2_dynamicBody);
+	
+	fix.shape = &box;
+	fix.density = 1;
+	fix.friction = 0.3f;
+	rb->addFixture(fix);
+	playCtrl->setRb(rb);
+	Sprite* playerSprite = player->addComponent<Sprite>();
+	playerSprite->updateLayer(5);
+	playerSprite->setTexture(&textures[1]);
+
+	Object* cam = createObject(sf::Vector2f(0, 0));
+	CameraController* camC = cam->addComponent<CameraController>();
+	camC->setPlayer(player);
+	sf::Vector2f low(0, 0), up(500, 500);
+	camC->setBounds(low, up);
 }
 
 void Game::drawSprites() {
@@ -194,4 +246,7 @@ void Game::loadMap() {
 			}
 		}
 	}
+}
+void Game::setPlayerCtrl(PlayerController* nPC) {
+	playerCtrl = nPC;
 }
