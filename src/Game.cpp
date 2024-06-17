@@ -194,7 +194,7 @@ void Game::buildScene()
 	//spriteComp3->updateLayer(-1);
 	//spriteComp3->setTexture(&textures[0]);
 
-	Object* player = createObject(sf::Vector2f(0, 0));
+	Object* player = createObject(sf::Vector2f(42 * BASE_SIZE, 62 * BASE_SIZE));
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
@@ -232,6 +232,7 @@ void Game::buildScene()
 	Sprite* visibSprite = visib->addComponent<Sprite>();
 	visibSprite->updateLayer(INT_MAX);
 	visibSprite->setTexture(&textures[3]);
+	visibSprite->setOrigin(sf::Vector2f(120, 120));
 	VisibComp* visibComp = visib->addComponent<VisibComp>();
 	visibComp->setPlayer(player);
 }
