@@ -17,6 +17,7 @@ void RigidBody::createBody(b2BodyType type)
 	sf::Vector2f pos = getObject()->getPos();
 	bodyDef.position.Set(pos.x, pos.y);
 	bodyDef.fixedRotation = true;
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 
 	body = getObject()->getGame()->getWorld()->CreateBody(&bodyDef);
 }
@@ -51,6 +52,11 @@ void RigidBody::addForce(b2Vec2& force)
 	}
 
 	body->ApplyForceToCenter(force, true);
+}
+
+void RigidBody::resetSpeed()
+{
+	body->SetLinearVelocity(b2Vec2_zero);
 }
 
 void RigidBody::update()

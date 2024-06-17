@@ -4,8 +4,11 @@
 #include <vector>
 #include "Component.h"
 #include "box2d/box2d.h"
+#include "ContactListener.h"
 
 #define GAME_NAME "Baby's Mansion"
+#define BASE_SIZE 8
+#define PLAYER_SPEED 50
 
 class Object;
 class Sprite;
@@ -20,6 +23,8 @@ public:
     Object* createObject(sf::Vector2f pos);
     void addCompUpdateListener(Component* listener);
     void drawSprites();
+
+    void lose();
 
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
     // Sets the new playerCtrl
@@ -37,6 +42,8 @@ private:
     std::multimap<int, Sprite*> spriteLayers;
     std::vector<sf::Texture> textures;
     std::vector<sf::Texture> mapTextures;
+    ContactListener contactListener;
+
 
     // Component to which instructions will be sent when moving the player (initialized to the last PlayerController componnent attached)
     PlayerController* playerCtrl;

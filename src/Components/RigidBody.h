@@ -12,6 +12,7 @@ public:
 	void addFixture(b2FixtureDef& fixtureDef);
 	void addFixture(b2PolygonShape&);
 	void addForce(b2Vec2& force);
+	void resetSpeed();
 
 	void update() override;
 

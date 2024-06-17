@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Component.h"
 #include "RigidBody.h"
+#include "Game.h"
 
 
 class PlayerController : public Component {
@@ -16,7 +17,7 @@ public:
 
 private:
 	RigidBody *rb = nullptr;
-	float velocity = 1000000;
+	float velocity = PLAYER_SPEED;
 	b2Vec2 dirVec;
 	b2Vec2 appliedForce;
 

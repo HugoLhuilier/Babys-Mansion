@@ -14,14 +14,14 @@ Object::Object(sf::Vector2f nPos, Game* nGame)
 	game = nGame;
 }
 
-void Object::addTag(const std::string& tag)
+void Object::addTag(const Tag tag)
 {
 	tags.push_back(tag);
 }
 
-const bool Object::hasTag(const std::string& tag)
+const bool Object::hasTag(const Tag tag)
 {
-	for (string str : tags) {
+	for (auto str : tags) {
 		if (str == tag)
 			return true;
 	}
@@ -40,11 +40,11 @@ void Object::updatePos(sf::Vector2f newPos) {
 void Object::makeItWall(int textID) {
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
-	sprite->setTexture(game->getTexture(textID));
+	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	b2FixtureDef fix; 
 	b2PolygonShape box; 
-	box.SetAsBox(4, 4);
+	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
 
 	RigidBody* rb = addComponent<RigidBody>(); 
 	rb->createBody(b2_staticBody); 
@@ -54,17 +54,17 @@ void Object::makeItWall(int textID) {
 void Object::makeItFloor(int textID) {
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(-1); 
-	sprite->setTexture(game->getTexture(textID)); 
+	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 }
 
 void Object::makeItFurniture(int textID) {
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(0); 
-	sprite->setTexture(game->getTexture(textID)); 
+	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	b2FixtureDef fix; 
 	b2PolygonShape box; 
-	box.SetAsBox(4, 4); 
+	box.SetAsBox(BASE_SIZE / 2, BASE_SIZE / 2);
 
 	RigidBody* rb = addComponent<RigidBody>(); 
 	rb->createBody(b2_staticBody); 

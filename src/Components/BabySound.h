@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "SFML/Audio.hpp"
+#include "Game.h"
 
 class BabySound : public Component {
 public:
@@ -13,7 +14,7 @@ public:
 	void restartClock();
 
 private:
-	float minDistance = 100;
+	float minDistance = BASE_SIZE * 5;
 	float attenuation = 1;
 	float minTime = 5;
 	float maxTime = 10;
