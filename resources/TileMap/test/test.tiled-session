@@ -5,18 +5,23 @@
     },
     "activeFile": "test.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "4 BigSet bon.tsx": {
             "scaleInDock": 3,
             "scaleInEditor": 1
         },
+        "lanterne.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "test.tmx": {
-            "scale": 1.8346874999999998,
+            "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 160.51779935275084,
-                "y": 160.5177993527508
+                "x": 1382.75,
+                "y": 763.75
             }
         }
     },
@@ -27,11 +32,13 @@
     "map.width": 20,
     "openFiles": [
         "4 BigSet bon.tsx",
-        "test.tmx"
+        "test.tmx",
+        "lanterne.tsx"
     ],
     "project": "test.tiled-project",
     "recentFiles": [
         "4 BigSet bon.tsx",
+        "lanterne.tsx",
         "test.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

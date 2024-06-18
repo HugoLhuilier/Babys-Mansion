@@ -5,8 +5,7 @@
 using namespace std;
 
 
-void RigidBody::createBody(b2BodyType type)
-{
+void RigidBody::createBody(b2BodyType type) {
 	if (body) {
 		cerr << "A body has already been created." << endl;
 		return;
@@ -23,8 +22,7 @@ void RigidBody::createBody(b2BodyType type)
 }
 
 // Used to create fixture for a dynamic object
-void RigidBody::addFixture(b2FixtureDef& fixtureDef)
-{
+void RigidBody::addFixture(b2FixtureDef& fixtureDef) {
 	if (!body) {
 		cerr << "No body has been created yet." << endl;
 		return;
@@ -34,8 +32,7 @@ void RigidBody::addFixture(b2FixtureDef& fixtureDef)
 }
 
 // Used to create fixture for a static object
-void RigidBody::addFixture(b2PolygonShape& shape)
-{
+void RigidBody::addFixture(b2PolygonShape& shape) {
 	if (!body) {
 		cerr << "No body has been created yet." << endl;
 		return;
@@ -44,8 +41,7 @@ void RigidBody::addFixture(b2PolygonShape& shape)
 	body->CreateFixture(&shape, 0);
 }
 
-void RigidBody::addForce(b2Vec2& force)
-{
+void RigidBody::addForce(b2Vec2& force) {
 	if (!body) {
 		cerr << "No body has been created yet." << endl;
 		return;
@@ -54,13 +50,11 @@ void RigidBody::addForce(b2Vec2& force)
 	body->ApplyForceToCenter(force, true);
 }
 
-void RigidBody::resetSpeed()
-{
+void RigidBody::resetSpeed() {
 	body->SetLinearVelocity(b2Vec2_zero);
 }
 
-void RigidBody::update()
-{
+void RigidBody::update() {
 	// Update object position ever frame if rigidBody is dynamic (ie can move)
 	if (body && body->GetType() == b2BodyType::b2_dynamicBody) {
 		b2Vec2 bodyPos = body->GetTransform().p;

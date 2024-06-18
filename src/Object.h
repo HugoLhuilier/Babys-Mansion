@@ -35,6 +35,8 @@ public:
     void makeItWall(int textID);
     void makeItFloor(int textID);
     void makeItFurniture(int textID);
+    void makeItLantern(int textID); 
+    void makeItFinish(int textID);
 
 private:
     sf::Vector2f pos;
