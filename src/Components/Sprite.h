@@ -12,9 +12,9 @@ public:
 	using Component::Component;
 
 	/*
-	* Function setting the texture
+	* Function adding a texture to the textures vector
 	*/
-	void setTexture(sf::Texture* tex, sf::Vector2f size = sf::Vector2f(0, 0));
+	void addTexture(sf::Texture* tex, sf::Vector2f size = sf::Vector2f(0, 0));
 
 	/*
 	* Function updating the position

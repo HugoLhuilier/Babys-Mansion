@@ -44,7 +44,7 @@ void Object::updatePos(sf::Vector2f newPos) {
 void Object::makeItWall(int textID) {
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
-	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	sprite->addTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	b2PolygonShape box; 
 	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
@@ -57,13 +57,13 @@ void Object::makeItWall(int textID) {
 void Object::makeItFloor(int textID) {
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(-1); 
-	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	sprite->addTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 }
 
 void Object::makeItFurniture(int textID) {
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(0); 
-	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	sprite->addTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	b2FixtureDef fix; 
 	b2PolygonShape box; 
@@ -77,7 +77,7 @@ void Object::makeItFurniture(int textID) {
 void Object::makeItLantern(int textID) {
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
-	sprite->setTexture(game->getTextureLantern(), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	sprite->addTexture(game->getTextureLantern(), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	RigidBody* rb = addComponent<RigidBody>();
 	b2FixtureDef fix;
@@ -94,7 +94,7 @@ void Object::makeItLantern(int textID) {
 void Object::makeItFinish(int textID) {
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(-1);
-	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	sprite->addTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 
 	RigidBody* rb = addComponent<RigidBody>();
 	b2FixtureDef fix;
@@ -119,10 +119,10 @@ void Object::makeItPlayer(sf::Texture* text[4]) {
 	Sprite* playerSprite = addComponent<Sprite>();
 	playerSprite->updateLayer(5);
 	sf::Vector2f spriteSize(BASE_SIZE * 2 / 3, BASE_SIZE * 80 / 48);
-	playerSprite->setTexture(text[0], spriteSize);
-	playerSprite->setTexture(text[1], spriteSize);
-	playerSprite->setTexture(text[2], spriteSize);
-	playerSprite->setTexture(text[3], spriteSize);
+	playerSprite->addTexture(text[0], spriteSize);
+	playerSprite->addTexture(text[1], spriteSize);
+	playerSprite->addTexture(text[2], spriteSize);
+	playerSprite->addTexture(text[3], spriteSize);
 
 	PlayerController* playCtrl = addComponent<PlayerController>();
 	RigidBody* rb = addComponent<RigidBody>();
@@ -151,8 +151,8 @@ void Object::makeItBaby(sf::Texture* text[], Object* player) {
 	fix.friction = 0.3f;
 	Sprite* fantSprite = addComponent<Sprite>();
 	fantSprite->updateLayer(5);
-	fantSprite->setTexture(text[0], sf::Vector2f(BASE_SIZE, BASE_SIZE));
-	fantSprite->setTexture(text[1], sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	fantSprite->addTexture(text[0], sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	fantSprite->addTexture(text[1], sf::Vector2f(BASE_SIZE, BASE_SIZE));
 	RigidBody* rbFant = addComponent<RigidBody>();
 	fix.isSensor = true;
 	rbFant->createBody(b2BodyType::b2_dynamicBody);
@@ -168,7 +168,7 @@ void Object::makeItBaby(sf::Texture* text[], Object* player) {
 void Object::makeItVisibility(sf::Texture* text, Object* player) {
 	Sprite* visibSprite = addComponent<Sprite>();
 	visibSprite->updateLayer(INT_MAX);
-	visibSprite->setTexture(text);
+	visibSprite->addTexture(text);
 	visibSprite->setOrigin(sf::Vector2f(120, 120));
 	VisibComp* visibComp = addComponent<VisibComp>();
 	visibComp->setPlayer(player);

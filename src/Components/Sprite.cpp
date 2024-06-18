@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void Sprite::setTexture(sf::Texture* tex, sf::Vector2f size) {
+void Sprite::addTexture(sf::Texture* tex, sf::Vector2f size) {
 	textures.push_back(tex);
 
 	if (textures.size() == 1)
