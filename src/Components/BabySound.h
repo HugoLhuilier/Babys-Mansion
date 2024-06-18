@@ -16,8 +16,8 @@ public:
 private:
 	float minDistance = BASE_SIZE * 5;
 	float attenuation = 1;
-	float minTime = 5;
-	float maxTime = 10;
+	float minTime = 10;
+	float maxTime = 20;
 	float waitTime;
 
 	sf::Sound sound;

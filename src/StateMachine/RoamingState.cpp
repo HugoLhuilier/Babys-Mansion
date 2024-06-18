@@ -13,7 +13,12 @@ void RoamingState::start() {
 	roamDir = b2Vec2(speed * cos(angle), speed * sin(angle));
 	clock.restart();
 
-	cout << "Entering Roaming state for " << waitTime << "s" << endl;
+	if (b2Dot(roamDir, b2Vec2(0, 1)) > 0) {
+		controller->getSprite()->switchSpriteID(0);
+	}
+	else {
+		controller->getSprite()->switchSpriteID(1);
+	}
 }
 
 void RoamingState::update() {

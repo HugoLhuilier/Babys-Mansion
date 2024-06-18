@@ -8,6 +8,11 @@ void PlayerController::setRb(RigidBody* nRb) {
 	rb = nRb;
 }
 
+void PlayerController::triggerBonus()
+{
+	visibComp->extendLight();
+}
+
 void PlayerController::init() {
 	getObject()->getGame()->setPlayerCtrl(this);
 }
@@ -40,6 +45,19 @@ void PlayerController::updateDirVec() {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 			dirVec += b2Vec2(0, -1);
+		}
+
+		if (dirVec.y == -1) {
+			sprite->switchSpriteID(0);
+		}
+		else if (dirVec.y == 1) {
+			sprite->switchSpriteID(2);
+		}
+		else if (dirVec.x == 1) {
+			sprite->switchSpriteID(1);
+		}
+		else if (dirVec.x == -1) {
+			sprite->switchSpriteID(3);
 		}
 
 		if (dirVec.LengthSquared() != 0) {

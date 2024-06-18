@@ -11,7 +11,9 @@
 
 enum class Tag {
     Player,
-    Baby
+    Baby,
+    Finnish,
+    Lantern
 };
 
 class Object {
@@ -24,6 +26,7 @@ public:
     comp_t::iterator compEnd() { return components.end(); }
 
     template<typename T> T* addComponent();
+    template<typename T> T* getComponent();
     void addTag(const Tag tag);
     const bool hasTag(const Tag tag);
 
@@ -37,6 +40,10 @@ public:
     void makeItFurniture(int textID);
     void makeItLantern(int textID); 
     void makeItFinish(int textID);
+    void makeItCamera(Object* player);
+    void makeItPlayer(sf::Texture* text[4]);
+    void makeItBaby(sf::Texture* text[2], Object* player);
+    void makeItVisibility(sf::Texture* text, Object* player);
 
     Component* getFirstComponent() { return components[0].get(); }
 
@@ -60,4 +67,14 @@ T* Object::addComponent() {
     res->updatePos(pos);
 
     return res;
+}
+
+template<typename T>
+T* Object::getComponent() {
+    for (auto& comp : components) {
+        if (T* res = dynamic_cast<T*>(comp.get()))
+            return res;
+    }
+
+    return nullptr;
 }
