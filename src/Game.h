@@ -56,16 +56,24 @@ public:
     * Function drawing every sprites by calling renderSprite from "Sprites.h"
     */
     void drawSprites();
+
+    /*
+    * Function updating the game that calls all the listeners' update function according to the pattern design "observer"
+    */
     void update(); 
+
+    /*
+    * Function to stop the game when the baby gets to the player
+    */
     void lose();
 
     /*
-    * Function returning the texture from the map according to the ID in argument
+    * Function returning a pointer to the texture from the map according to the ID in argument
     */
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
 
     /*
-    * Function returning the lantern texture (needed to create the object with its sprite in "Object.h")
+    * Function returning a pointer to the lantern texture (needed to create the object with its sprite in "Object.h")
     */
     sf::Texture* getTextureLantern() { return &textures[4]; }
 
@@ -75,12 +83,12 @@ public:
     void setPlayerCtrl(PlayerController* nPC);
 
     /*
-    * Function returning the window
+    * Function returning a pointer to the window
     */
     sf::RenderWindow* getWindow() const { return win.get(); }
 
     /*
-    * Function returning the world variable from box2d
+    * Function returning a pointer to the world variable from box2d
     */
     b2World* getWorld() const { return world.get(); }
     Object* getFirstObject() const { return objects[0].get(); }
@@ -105,9 +113,23 @@ private:
 
     std::unique_ptr<b2World> world;
 
-    
+    /*
+    * Function to handle events like closing the window
+    */
     void handleEvents();
+
+    /*
+    * Function building the scene for example by creating the player 
+    */
     void buildScene();
+
+    /*
+    * Function loading the textures of the player, the baby and the visibility 
+    */
     void loadTextures();
+
+    /*
+    * Function loading the texture for the map
+    */
     void loadMap();
 };
