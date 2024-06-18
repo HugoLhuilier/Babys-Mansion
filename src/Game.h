@@ -23,7 +23,7 @@ public:
     Object* createObject(sf::Vector2f pos);
     void addCompUpdateListener(Component* listener);
     void drawSprites();
-
+    void update(); 
     void lose();
 
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
@@ -33,6 +33,7 @@ public:
 
     sf::RenderWindow* getWindow() const { return win.get(); }
     b2World* getWorld() const { return world.get(); }
+    Object* getFirstObject() const { return objects[0].get(); }
 
     ~Game();
 
@@ -51,7 +52,7 @@ private:
 
     std::unique_ptr<b2World> world;
 
-    void update();
+    
     void handleEvents();
     void buildScene();
     void loadTextures();
