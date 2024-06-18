@@ -74,6 +74,8 @@ public:
     void makeItLantern(int textID); 
     void makeItFinish(int textID);
 
+    Component* getFirstComponent() { return components[0].get(); }
+
 private:
     sf::Vector2f pos;
     comp_t components;

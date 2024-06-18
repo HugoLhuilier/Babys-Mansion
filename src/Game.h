@@ -56,10 +56,7 @@ public:
     * Function drawing every sprites by calling renderSprite from "Sprites.h"
     */
     void drawSprites();
-
-    /*
-    * Function to stop the game when the baby gets to the player
-    */
+    void update(); 
     void lose();
 
     /*
@@ -86,6 +83,7 @@ public:
     * Function returning the world variable from box2d
     */
     b2World* getWorld() const { return world.get(); }
+    Object* getFirstObject() const { return objects[0].get(); }
 
     /*
     * Destructor of the class Game, redefined because of circulary dependencies
@@ -107,7 +105,7 @@ private:
 
     std::unique_ptr<b2World> world;
 
-    void update();
+    
     void handleEvents();
     void buildScene();
     void loadTextures();
