@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "Object.h"
+#include "Components/Sprite.h"
 
 
 /*
@@ -16,11 +17,20 @@ public:
 	*/
 	void update() override;
 
-	/*
-	* Function setting the player on which to focus the circle of vision 
-	*/
+	void extendLight();
+
 	void setPlayer(Object* nP) { player = nP; }
+	void setSprite(Sprite* nSprite) { sprite = nSprite; }
 
 private:
 	Object* player;
+	Sprite* sprite;
+
+	float bonusTime = 5;
+	float extendTime = 1;
+	float lightSizeFact = 3;
+
+	sf::Clock clock;
+
+	void setSpriteSize();
 };

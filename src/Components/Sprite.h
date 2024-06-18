@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Component.h"
+#include <vector>
 
 /*
 * class Sprite used to put a sprite on an object and set/update its characteristics
@@ -35,14 +36,17 @@ public:
 	*/
 	void init() override;
 
-	/*
-	* Function setting the origin of the sprite
-	*/
+	void switchSpriteID(int id);
+
 	void setOrigin(sf::Vector2f newOrig);
+	void setScale(sf::Vector2f nScale) { sprite.setScale(nScale); }
+
+	const sf::Sprite* getSprite() { return &sprite; }
 
 private:
 	sf::Sprite sprite;
-	sf::Texture* texture;
+	std::vector<sf::Texture*> textures;
 	sf::RenderWindow* win;
 	int layer = INT_MIN;
+	int textureID = 0;
 };

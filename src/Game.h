@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "Component.h"
 #include "box2d/box2d.h"
@@ -14,9 +15,13 @@ class Object;
 class Sprite;
 class PlayerController;
 
-/*
-* The Game class is used to create the game and  everything within
-*/
+enum class GameState {
+    Playing,
+    Lose,
+    Waiting,
+    Win
+};
+
 class Game {
 public:
     /*
@@ -57,15 +62,12 @@ public:
     */
     void drawSprites();
 
-    /*
-    * Function updating the game that calls all the listeners' update function according to the pattern design "observer"
-    */
+    void winning();
+
     void update(); 
 
-    /*
-    * Function to stop the game when the baby gets to the player
-    */
     void lose();
+    void reloadGame();
 
     /*
     * Function returning a pointer to the texture from the map according to the ID in argument
@@ -106,6 +108,13 @@ private:
     std::vector<sf::Texture> textures;
     std::vector<sf::Texture> mapTextures;
     ContactListener contactListener;
+    GameState state = GameState::Waiting;
+
+    sf::SoundBuffer loseBuffer;
+    sf::SoundBuffer winBuffer;
+    sf::Sound loseSound;
+    sf::Sound winSound;
+    sf::Music music;
 
 
     // Component to which instructions will be sent when moving the player (initialized to the last PlayerController componnent attached)

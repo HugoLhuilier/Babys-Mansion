@@ -8,6 +8,7 @@
 #include "StateMachine/IdleState.h"
 #include "StateMachine/FollowingState.h"
 #include "Game.h"
+#include "Components/Sprite.h"
 
 /*
 * differet State tag to know in which state is the baby 
@@ -59,6 +60,7 @@ public:
 	* Function returning a pointer of the player followed 
 	*/
 	Object* getPlayer() const { return player; }
+	Sprite* getSprite() const { return sprite; }
 
 	/*
 	* Function setting the rigid body of the baby
@@ -69,6 +71,7 @@ public:
 	* Function setting the player to chase
 	*/
 	void setPlayer(Object* nP) { player = nP; }
+	void setSprite(Sprite* nS) { sprite = nS; }
 
 private:
 	RigidBody* rb;
@@ -79,4 +82,5 @@ private:
 	RoamingState roamingState;
 	IdleState idleState;
 	FollowingState followingState;
+	Sprite* sprite;
 };

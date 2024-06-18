@@ -2,6 +2,7 @@
 #include "Components/RigidBody.h"
 #include "Object.h"
 #include <iostream>
+#include "Components/PlayerController.h"
 
 using namespace std;
 
@@ -23,6 +24,19 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
 	if (other->hasTag(Tag::Baby)) {
 		player->getGame()->lose();
+		return;
+	}
+
+	if (other->hasTag(Tag::Finnish)) {
+		player->getGame()->winning();
+		return;
+	}
+
+	if (other->hasTag(Tag::Lantern)) {
+		if (PlayerController* p = player->getComponent<PlayerController>())
+			p->triggerBonus();
+		else
+			cerr << "PlayerController component not found" << endl;
 		return;
 	}
 }
