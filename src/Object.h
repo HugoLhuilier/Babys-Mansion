@@ -45,6 +45,8 @@ public:
     void makeItBaby(sf::Texture* text[2], Object* player);
     void makeItVisibility(sf::Texture* text, Object* player);
 
+    Component* getFirstComponent() { return components[0].get(); }
+
 private:
     sf::Vector2f pos;
     comp_t components;

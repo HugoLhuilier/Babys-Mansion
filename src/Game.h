@@ -33,6 +33,9 @@ public:
     void drawSprites();
 
     void winning();
+
+    void update(); 
+
     void lose();
     void reloadGame();
 
@@ -43,6 +46,7 @@ public:
 
     sf::RenderWindow* getWindow() const { return win.get(); }
     b2World* getWorld() const { return world.get(); }
+    Object* getFirstObject() const { return objects[0].get(); }
 
     ~Game();
 
@@ -68,7 +72,7 @@ private:
 
     std::unique_ptr<b2World> world;
 
-    void update();
+    
     void handleEvents();
     void buildScene();
     void loadTextures();
