@@ -8,6 +8,7 @@
 #include "StateMachine/IdleState.h"
 #include "StateMachine/FollowingState.h"
 #include "Game.h"
+#include "Components/Sprite.h"
 
 
 enum class StateTag {
@@ -28,9 +29,11 @@ public:
 	float getSpeed() const { return speed; }
 	RigidBody* getRb() const { return rb; }
 	Object* getPlayer() const { return player; }
+	Sprite* getSprite() const { return sprite; }
 
 	void setRb(RigidBody* nRb) { rb = nRb; }
 	void setPlayer(Object* nP) { player = nP; }
+	void setSprite(Sprite* nS) { sprite = nS; }
 
 private:
 	RigidBody* rb;
@@ -41,4 +44,5 @@ private:
 	RoamingState roamingState;
 	IdleState idleState;
 	FollowingState followingState;
+	Sprite* sprite;
 };

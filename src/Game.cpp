@@ -28,7 +28,7 @@ Game::Game(const sf::VideoMode &vMode) {
 	world->SetContactListener(&contactListener);
 }
 
-Game::~Game() {}
+Game::~Game() = default;
 
 void Game::loadTextures() {
 	sf::Texture text;
@@ -96,6 +96,48 @@ void Game::loadTextures() {
 		cerr << "Can't load texture" << endl;
 	}
 	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/player/player_droite.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/player/player_face.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/player/player_gauche.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!text.loadFromFile("resources/sprites/baby/baby_droite.png")) {
+		cerr << "Can't load texture" << endl;
+	}
+	textures.push_back(text);
+
+	if (!loseBuffer.loadFromFile("resources/sounds/LosingBaby.ogg")) {
+		cerr << "Failed loading losing baby sound" << endl;
+	}
+
+	loseSound.setBuffer(loseBuffer);
+	loseSound.setRelativeToListener(true);
+	loseSound.setPosition(0, 0, 0);
+
+	if (!winBuffer.loadFromFile("resources/sounds/win.ogg")) {
+		cerr << "Failed loading losing baby sound" << endl;
+	}
+
+	winSound.setBuffer(winBuffer);
+	winSound.setRelativeToListener(true);
+	winSound.setPosition(0, 0, 0);
+
+	if (!music.openFromFile("resources/sounds/ambient.ogg")) {
+		cerr << "Failed loading losing baby sound" << endl;
+	}
+	music.setLoop(true);
+	music.setRelativeToListener(true);
 }
 
 void Game::startGame() {
@@ -109,19 +151,38 @@ void Game::startGame() {
 	int32 velocityIterations = 6;
 	int32 positionIterations = 2;
 
+	music.play();
+
+	state = GameState::Playing;
+
 	while (win->isOpen()) {
+		handleEvents();
 		elapsed = clock.restart();
 
-		win->clear();
+		if (state == GameState::Playing) {
+			win->clear();
 
-		handleEvents();
+			update();
 
-		update();
+			world->Step(elapsed.asSeconds(), velocityIterations, positionIterations);
 
-		world->Step(elapsed.asSeconds(), velocityIterations, positionIterations);
-
-		drawSprites();
+			drawSprites();
+		}
 	}
+}
+
+void Game::reloadGame() {
+	objects.clear();
+	compUpdateListeners.clear();
+	spriteLayers.clear();
+	b2Vec2 grav(0, 0);
+	world = make_unique<b2World>(grav);
+	world->SetContactListener(&contactListener);
+
+	loadMap();
+	buildScene();
+
+	state = GameState::Playing;
 }
 
 void Game::update() {
@@ -142,6 +203,10 @@ void Game::handleEvents() {
 	while (win->pollEvent(event)) {
 		if (event.type == sf::Event::Closed)
 			win->close();
+
+		if ((state == GameState::Win || state == GameState::Lose) && event.type == sf::Event::KeyPressed) {
+			reloadGame();
+		}
 	}
 }
 
@@ -171,78 +236,20 @@ Object* Game::createObject(sf::Vector2f pos) {
 }
 
 void Game::buildScene() {
-	b2FixtureDef fix;
-	b2PolygonShape box;
-	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
-
-	//Object* testObject = createObject(sf::Vector2f(0, 0));
-	//Sprite* spriteComp = testObject->addComponent<Sprite>();
-	//RigidBody* rb1 = testObject->addComponent<RigidBody>();
-	//rb1->createBody(b2_staticBody);
-	//rb1->addFixture(box);
-
-	//Object* testObject2 = createObject(sf::Vector2f(32, 0));
-	//Sprite* spriteComp2 = testObject2->addComponent<Sprite>();
-	//RigidBody* rb2 = testObject2->addComponent<RigidBody>();
-	//rb2->createBody(b2_staticBody);
-	//rb2->addFixture(box);
-
-	//Object* testObject3 = createObject(sf::Vector2f(16, 16));
-	//Sprite* spriteComp3 = testObject3->addComponent<Sprite>();
-	//RigidBody* rb3 = testObject3->addComponent<RigidBody>();
-	//rb3->createBody(b2_staticBody);
-	//rb3->addFixture(box);
-
-	//spriteComp->updateLayer(0);
-	//spriteComp->setTexture(&textures[0]);
-	//spriteComp2->updateLayer(0);
-	//spriteComp2->setTexture(&textures[0]);
-	//spriteComp3->updateLayer(-1);
-	//spriteComp3->setTexture(&textures[0]);
-
-	Object* player = createObject(sf::Vector2f(42 * BASE_SIZE, 62 * BASE_SIZE));
-	PlayerController* playCtrl = player->addComponent<PlayerController>();
-	RigidBody* rb = player->addComponent<RigidBody>();
-	rb->createBody(b2BodyType::b2_dynamicBody);
-	AudioListener* audio = player->addComponent<AudioListener>();
-	player->addTag(Tag::Player);
-	
-	fix.shape = &box;
-	fix.density = 1;
-	fix.friction = 0.3f;
-	rb->addFixture(fix);
-	playCtrl->setRb(rb);
-	Sprite* playerSprite = player->addComponent<Sprite>();
-	playerSprite->updateLayer(5);
-	playerSprite->setTexture(&textures[1], sf::Vector2f(BASE_SIZE, BASE_SIZE));
+	Object* player = createObject(sf::Vector2f(41 * BASE_SIZE, 61 * BASE_SIZE));
+	sf::Texture* texts[4] = { &textures[1], &textures[5], &textures[6], &textures[7] };
+	player->makeItPlayer(texts);
 
 	Object* cam = createObject(sf::Vector2f(0, 0));
-	CameraController* camC = cam->addComponent<CameraController>();
-	camC->setPlayer(player);
-	sf::Vector2f low(0, 0), up(500, 500);
-	camC->setBounds(low, up);
+	cam->makeItCamera(player);
 
 	Object* fantome = createObject(sf::Vector2f(0, 0));
-	Sprite* fantSprite = fantome->addComponent<Sprite>();
-	fantSprite->updateLayer(5);
-	fantSprite->setTexture(&textures[2], sf::Vector2f(BASE_SIZE, BASE_SIZE));
-	RigidBody* rbFant = fantome->addComponent<RigidBody>();
-	fix.isSensor = true;
-	rbFant->createBody(b2BodyType::b2_dynamicBody);
-	rbFant->addFixture(fix);
-	BabyController* cont = fantome->addComponent<BabyController>();
-	cont->setPlayer(player);
-	cont->setRb(rbFant);
-	BabySound* sound = fantome->addComponent<BabySound>();
-	fantome->addTag(Tag::Baby);
+	sf::Texture* textsB[2] = { &textures[2], &textures[8] };
+	fantome->makeItBaby(textsB, player);
 
 	Object* visib = createObject(sf::Vector2f(0, 0));
-	Sprite* visibSprite = visib->addComponent<Sprite>();
-	visibSprite->updateLayer(INT_MAX);
-	visibSprite->setTexture(&textures[3]);
-	visibSprite->setOrigin(sf::Vector2f(120, 120));
-	VisibComp* visibComp = visib->addComponent<VisibComp>();
-	visibComp->setPlayer(player);
+	visib->makeItVisibility(&textures[3], player);
+	player->getComponent<PlayerController>()->setVisibComp(visib->getComponent<VisibComp>());
 }
 
 void Game::drawSprites() {
@@ -256,7 +263,15 @@ void Game::drawSprites() {
 
 void Game::lose() {
 	//lorsqu'on perd (c'est a dire le b�b� nous attrape)
-	cout << "Perdu !!" << endl;
+	state = GameState::Lose;	
+
+	loseSound.play();
+}
+
+void Game::winning() {
+	state = GameState::Win;
+
+	winSound.play();
 }
 
 void Game::loadMap() {

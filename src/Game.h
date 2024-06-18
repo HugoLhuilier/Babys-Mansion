@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "Component.h"
 #include "box2d/box2d.h"
@@ -14,6 +15,13 @@ class Object;
 class Sprite;
 class PlayerController;
 
+enum class GameState {
+    Playing,
+    Lose,
+    Waiting,
+    Win
+};
+
 class Game {
 public:
     Game(const sf::VideoMode& vMode);
@@ -24,7 +32,9 @@ public:
     void addCompUpdateListener(Component* listener);
     void drawSprites();
 
+    void winning();
     void lose();
+    void reloadGame();
 
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
     sf::Texture* getTextureLantern() { return &textures[4]; }
@@ -44,6 +54,13 @@ private:
     std::vector<sf::Texture> textures;
     std::vector<sf::Texture> mapTextures;
     ContactListener contactListener;
+    GameState state = GameState::Waiting;
+
+    sf::SoundBuffer loseBuffer;
+    sf::SoundBuffer winBuffer;
+    sf::Sound loseSound;
+    sf::Sound winSound;
+    sf::Music music;
 
 
     // Component to which instructions will be sent when moving the player (initialized to the last PlayerController componnent attached)
