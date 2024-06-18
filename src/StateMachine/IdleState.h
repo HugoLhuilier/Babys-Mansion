@@ -3,6 +3,10 @@
 #include "BaseState.h"
 #include <SFML/Graphics.hpp>
 
+
+/*
+* State active when the baby is idle
+*/
 class IdleState : public BaseState {
 public:
 	void start() override;

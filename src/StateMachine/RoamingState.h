@@ -4,6 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include "box2d/box2d.h"
 
+
+/*
+* State active when the baby is roaming around
+*/
 class RoamingState : public BaseState {
 public:
 	void start() override;
