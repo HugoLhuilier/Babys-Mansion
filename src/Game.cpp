@@ -125,14 +125,12 @@ void Game::startGame() {
 }
 
 void Game::update() {
-//update tous les composants selon le design pattern "observer"
 	for (auto& comp : compUpdateListeners) {
 		comp->update();
 	}
 }
 
 void Game::addCompUpdateListener(Component* listener) {
-//ajoute les composants � la liste des "subscribers" du design pattern observer
 	compUpdateListeners.push_back(listener);
 }
 
@@ -174,31 +172,6 @@ void Game::buildScene() {
 	b2FixtureDef fix;
 	b2PolygonShape box;
 	box.SetAsBox(BASE_SIZE/2, BASE_SIZE/2);
-
-	//Object* testObject = createObject(sf::Vector2f(0, 0));
-	//Sprite* spriteComp = testObject->addComponent<Sprite>();
-	//RigidBody* rb1 = testObject->addComponent<RigidBody>();
-	//rb1->createBody(b2_staticBody);
-	//rb1->addFixture(box);
-
-	//Object* testObject2 = createObject(sf::Vector2f(32, 0));
-	//Sprite* spriteComp2 = testObject2->addComponent<Sprite>();
-	//RigidBody* rb2 = testObject2->addComponent<RigidBody>();
-	//rb2->createBody(b2_staticBody);
-	//rb2->addFixture(box);
-
-	//Object* testObject3 = createObject(sf::Vector2f(16, 16));
-	//Sprite* spriteComp3 = testObject3->addComponent<Sprite>();
-	//RigidBody* rb3 = testObject3->addComponent<RigidBody>();
-	//rb3->createBody(b2_staticBody);
-	//rb3->addFixture(box);
-
-	//spriteComp->updateLayer(0);
-	//spriteComp->setTexture(&textures[0]);
-	//spriteComp2->updateLayer(0);
-	//spriteComp2->setTexture(&textures[0]);
-	//spriteComp3->updateLayer(-1);
-	//spriteComp3->setTexture(&textures[0]);
 
 	Object* player = createObject(sf::Vector2f(42 * BASE_SIZE, 62 * BASE_SIZE));
 	PlayerController* playCtrl = player->addComponent<PlayerController>();
@@ -246,7 +219,6 @@ void Game::buildScene() {
 }
 
 void Game::drawSprites() {
-	//dessiner un sprite
 	for (auto& layer : spriteLayers) {
 		layer.second->renderSprite();
 	}
@@ -255,7 +227,6 @@ void Game::drawSprites() {
 }
 
 void Game::lose() {
-	//lorsqu'on perd (c'est a dire le b�b� nous attrape)
 	cout << "Perdu !!" << endl;
 }
 

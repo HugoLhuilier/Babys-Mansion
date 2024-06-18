@@ -35,7 +35,6 @@ void Object::updatePos(sf::Vector2f newPos) {
 }
 
 void Object::makeItWall(int textID) {
-	//fonction qui donne aux éléments "murs" leur caractéristiques : Sprite, RigidBody, Composant statique
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
@@ -50,14 +49,12 @@ void Object::makeItWall(int textID) {
 }
 
 void Object::makeItFloor(int textID) {
-	//fonction qui donne aux éléments "sol" leur caractéristiques : Sprite
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(-1); 
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 }
 
 void Object::makeItFurniture(int textID) {
-	//fonction qui donne aux éléments "meubles" leur caractéristiques : Sprite, RigidBody, Composant statique
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(0); 
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
@@ -72,7 +69,6 @@ void Object::makeItFurniture(int textID) {
 }
 
 void Object::makeItLantern(int textID) {
-	//fonction qui donne aux éléments "lanternes" leur caractéristiques : Sprite, RigidBody, Composant statique
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
 	sprite->setTexture(game->getTextureLantern(), sf::Vector2f(BASE_SIZE, BASE_SIZE));
@@ -87,7 +83,6 @@ void Object::makeItLantern(int textID) {
 }
 
 void Object::makeItFinish(int textID) {
-	//fonction qui donne aux éléments "sol" leur caractéristiques : Sprite
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(-1);
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));

@@ -14,26 +14,82 @@ class Object;
 class Sprite;
 class PlayerController;
 
+/*
+* The Game class is used to create the game and  everything within
+*/
 class Game {
 public:
+    /*
+    * Function to construct a Game
+    */
     Game(const sf::VideoMode& vMode);
+
+    /*
+    * Function starting the game
+    */
     void startGame();
+
+    /*
+    * Function adding a sprite to the multimap spriteLayers
+    */
     void addSprite(int lay, Sprite* sprite);
+
+    /*
+    * Function deleting a sprite from the multimap spriteLayers
+    */
     void deleteSprite(int lay, Sprite* sprite);
+
+    /*
+    * Function creating an Object at the position pos 
+    */
     Object* createObject(sf::Vector2f pos);
+
+    /*
+    * Add a Component to the vector of components listener
+    * This vector is used for the design pattern "Observer" 
+    * When the update() function from game is called, all of the update() functions 
+    * from the compUpdateListeners vector will be called too
+    */
     void addCompUpdateListener(Component* listener);
+
+    /*
+    * Function drawing every sprites by calling renderSprite from "Sprites.h"
+    */
     void drawSprites();
 
+    /*
+    * Function to stop the game when the baby gets to the player
+    */
     void lose();
 
+    /*
+    * Function returning the texture from the map according to the ID in argument
+    */
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
+
+    /*
+    * Function returning the lantern texture (needed to create the object with its sprite in "Object.h")
+    */
     sf::Texture* getTextureLantern() { return &textures[4]; }
-    // Sets the new playerCtrl
+
+    /*
+    * Function setting the new player controller
+    */
     void setPlayerCtrl(PlayerController* nPC);
 
+    /*
+    * Function returning the window
+    */
     sf::RenderWindow* getWindow() const { return win.get(); }
+
+    /*
+    * Function returning the world variable from box2d
+    */
     b2World* getWorld() const { return world.get(); }
 
+    /*
+    * Destructor of the class Game, redefined because of circulary dependencies
+    */
     ~Game();
 
 private:
