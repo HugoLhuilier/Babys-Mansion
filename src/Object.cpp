@@ -85,3 +85,10 @@ void Object::makeItLantern(int textID) {
 	rb->createBody(b2_staticBody);
 	rb->addFixture(box);
 }
+
+void Object::makeItFinish(int textID) {
+	//fonction qui donne aux éléments "sol" leur caractéristiques : Sprite
+	Sprite* sprite = addComponent<Sprite>();
+	sprite->updateLayer(-1);
+	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+}

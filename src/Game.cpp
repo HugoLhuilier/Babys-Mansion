@@ -292,9 +292,11 @@ void Game::loadMap() {
 						tuile->makeItFloor(tileID);
 					} else if (name == "furniture") {
 						tuile->makeItFurniture(tileID);
-					}
-					else if (name == "lantern") {
+					} else if (name == "lantern") {
 						tuile->makeItLantern(tileID);
+					}
+					else if (name == "finish") {
+						tuile->makeItFinish(tileID);
 					}
 					
 				}
