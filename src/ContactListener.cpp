@@ -1,6 +1,9 @@
 #include "ContactListener.h"
 #include "Components/RigidBody.h"
 #include "Object.h"
+#include <iostream>
+
+using namespace std;
 
 void ContactListener::BeginContact(b2Contact* contact)
 {

@@ -193,6 +193,7 @@ void Game::buildScene()
 	RigidBody* rb = player->addComponent<RigidBody>();
 	rb->createBody(b2BodyType::b2_dynamicBody);
 	AudioListener* audio = player->addComponent<AudioListener>();
+	player->addTag(Tag::Player);
 	
 	fix.shape = &box;
 	fix.density = 1;
@@ -221,6 +222,7 @@ void Game::buildScene()
 	cont->setPlayer(player);
 	cont->setRb(rbFant);
 	BabySound* sound = fantome->addComponent<BabySound>();
+	fantome->addTag(Tag::Baby);
 }
 
 void Game::drawSprites() {
