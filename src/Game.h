@@ -15,6 +15,9 @@ class Object;
 class Sprite;
 class PlayerController;
 
+/*
+* State of the Game
+*/
 enum class GameState {
     Playing,
     Lose,
@@ -22,6 +25,9 @@ enum class GameState {
     Win
 };
 
+/*
+* class Game to manage the game
+*/
 class Game {
 public:
     /*
@@ -62,11 +68,24 @@ public:
     */
     void drawSprites();
 
+    /*
+    * Function called when the game is won, when the player found the exit 
+    */
     void winning();
 
+    /*
+    * Function updtaing the game, calls all of the update functions of the components with the pattern design Obeserver
+    */
     void update(); 
 
+    /*
+    * Function called when the game is lost, when the baby gets to the player
+    */
     void lose();
+
+    /*
+    * Function to reload the game 
+    */
     void reloadGame();
 
     /*
@@ -93,6 +112,10 @@ public:
     * Function returning a pointer to the world variable from box2d
     */
     b2World* getWorld() const { return world.get(); }
+
+    /*
+    * Function returning a pointer on the first object of the vector objects (used in the tests)
+    */
     Object* getFirstObject() const { return objects[0].get(); }
 
     /*

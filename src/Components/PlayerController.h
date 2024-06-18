@@ -17,8 +17,20 @@ public:
 	* Function to set the rigidBody
 	*/
 	void setRb(RigidBody* nRb);
+
+	/*
+	* Function setting the vision system associated with the player
+	*/
 	void setVisibComp(VisibComp* v) { visibComp = v; }
+
+	/*
+	* Function setting the player sprite
+	*/
 	void setSprite(Sprite* nS) { sprite = nS; }
+
+	/*
+	* Function to trigger the lantern bonus
+	*/
 	void triggerBonus();
 	
 	/*

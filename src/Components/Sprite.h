@@ -36,11 +36,24 @@ public:
 	*/
 	void init() override;
 
+	/*
+	* Function to switch texture of the visible sprite 
+	*/
 	void switchSpriteID(int id);
 
+	/*
+	* Function setting the origin of the sprite
+	*/
 	void setOrigin(sf::Vector2f newOrig);
+
+	/*
+	* Function setting the scale of the sprite
+	*/
 	void setScale(sf::Vector2f nScale) { sprite.setScale(nScale); }
 
+	/*
+	* Function returning a pointer on the sprite
+	*/
 	const sf::Sprite* getSprite() { return &sprite; }
 
 private:

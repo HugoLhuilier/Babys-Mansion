@@ -60,6 +60,10 @@ public:
 	* Function returning a pointer of the player followed 
 	*/
 	Object* getPlayer() const { return player; }
+
+	/*
+	* Function returning a pointer to the sprite
+	*/
 	Sprite* getSprite() const { return sprite; }
 
 	/*
@@ -71,6 +75,10 @@ public:
 	* Function setting the player to chase
 	*/
 	void setPlayer(Object* nP) { player = nP; }
+
+	/*
+	* Function setting the sprite
+	*/
 	void setSprite(Sprite* nS) { sprite = nS; }
 
 private:
