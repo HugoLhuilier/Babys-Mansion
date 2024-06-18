@@ -5,8 +5,7 @@
 
 using namespace std;
 
-void CameraController::update()
-{
+void CameraController::update() {
 	if (player) {
 		sf::View nView = win->getView();
 		sf::Vector2f playPos = player->getPos();
@@ -20,13 +19,11 @@ void CameraController::init() {
 	win = object->getGame()->getWindow();
 }
 
-void CameraController::setPlayer(Object* nP)
-{
+void CameraController::setPlayer(Object* nP) {
 	player = nP;
 }
 
-void CameraController::setBounds(sf::Vector2f lower, sf::Vector2f upper)
-{
+void CameraController::setBounds(sf::Vector2f lower, sf::Vector2f upper) {
 	lowerBound = lower;
 	upperBound = upper;
 }

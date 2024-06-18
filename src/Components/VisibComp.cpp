@@ -2,8 +2,7 @@
 
 using namespace std;
 
-void VisibComp::update()
-{
+void VisibComp::update() {
 	if (player) {
 		getObject()->updatePos(player->getPos());
 	}

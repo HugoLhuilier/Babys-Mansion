@@ -5,20 +5,16 @@
 using namespace std;
 
 
-Component::Component(Object* nObject)
-{
+Component::Component(Object* nObject) {
 	object = nObject;
 }
 
-void Component::update()
-{
+void Component::update() {
 }
 
-void Component::init()
-{
+void Component::init() {
 }
 
-void Component::updatePos(sf::Vector2f)
-{
+void Component::updatePos(sf::Vector2f) {
 }
 

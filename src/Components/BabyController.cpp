@@ -2,8 +2,7 @@
 
 using namespace std;
 
-void BabyController::init()
-{
+void BabyController::init() {
 	idleState.setController(this);
 	roamingState.setController(this);
 	followingState.setController(this);
@@ -11,13 +10,11 @@ void BabyController::init()
 	switchState(StateTag::Idle);
 }
 
-void BabyController::update()
-{
+void BabyController::update() {
 	curState->update();
 }
 
-void BabyController::switchState(StateTag newState)
-{
+void BabyController::switchState(StateTag newState) {
 	switch (newState) {
 	case StateTag::Roaming:
 		curState = &roamingState;

@@ -27,6 +27,7 @@ public:
     void lose();
 
     sf::Texture* getTexture(int textID) { return &mapTextures[textID]; }
+    sf::Texture* getTextureLantern() { return &textures[4]; }
     // Sets the new playerCtrl
     void setPlayerCtrl(PlayerController* nPC);
 

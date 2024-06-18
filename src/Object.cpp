@@ -8,19 +8,16 @@
 using namespace std;
 
 
-Object::Object(sf::Vector2f nPos, Game* nGame)
-{
+Object::Object(sf::Vector2f nPos, Game* nGame) {
 	pos = nPos;
 	game = nGame;
 }
 
-void Object::addTag(const Tag tag)
-{
+void Object::addTag(const Tag tag) {
 	tags.push_back(tag);
 }
 
-const bool Object::hasTag(const Tag tag)
-{
+const bool Object::hasTag(const Tag tag) {
 	for (auto str : tags) {
 		if (str == tag)
 			return true;
@@ -38,6 +35,7 @@ void Object::updatePos(sf::Vector2f newPos) {
 }
 
 void Object::makeItWall(int textID) {
+	//fonction qui donne aux éléments "murs" leur caractéristiques : Sprite, RigidBody, Composant statique
 	Sprite* sprite = addComponent<Sprite>();
 	sprite->updateLayer(0);
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
@@ -52,12 +50,14 @@ void Object::makeItWall(int textID) {
 }
 
 void Object::makeItFloor(int textID) {
+	//fonction qui donne aux éléments "sol" leur caractéristiques : Sprite
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(-1); 
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 }
 
 void Object::makeItFurniture(int textID) {
+	//fonction qui donne aux éléments "meubles" leur caractéristiques : Sprite, RigidBody, Composant statique
 	Sprite* sprite = addComponent<Sprite>(); 
 	sprite->updateLayer(0); 
 	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
@@ -69,4 +69,26 @@ void Object::makeItFurniture(int textID) {
 	RigidBody* rb = addComponent<RigidBody>(); 
 	rb->createBody(b2_staticBody); 
 	rb->addFixture(box); 
+}
+
+void Object::makeItLantern(int textID) {
+	//fonction qui donne aux éléments "lanternes" leur caractéristiques : Sprite, RigidBody, Composant statique
+	Sprite* sprite = addComponent<Sprite>();
+	sprite->updateLayer(0);
+	sprite->setTexture(game->getTextureLantern(), sf::Vector2f(BASE_SIZE, BASE_SIZE));
+
+	b2FixtureDef fix;
+	b2PolygonShape box;
+	box.SetAsBox(BASE_SIZE / 2, BASE_SIZE / 2);
+
+	RigidBody* rb = addComponent<RigidBody>();
+	rb->createBody(b2_staticBody);
+	rb->addFixture(box);
+}
+
+void Object::makeItFinish(int textID) {
+	//fonction qui donne aux éléments "sol" leur caractéristiques : Sprite
+	Sprite* sprite = addComponent<Sprite>();
+	sprite->updateLayer(-1);
+	sprite->setTexture(game->getTexture(textID), sf::Vector2f(BASE_SIZE, BASE_SIZE));
 }

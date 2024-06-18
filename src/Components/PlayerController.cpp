@@ -4,30 +4,25 @@
 
 using namespace std;
 
-void PlayerController::setRb(RigidBody* nRb)
-{
+void PlayerController::setRb(RigidBody* nRb) {
 	rb = nRb;
 }
 
-void PlayerController::init()
-{
+void PlayerController::init() {
 	getObject()->getGame()->setPlayerCtrl(this);
 }
 
-void PlayerController::update()
-{
+void PlayerController::update() {
 	if (rb) {
 		updateDirVec();
 		if (appliedForce.LengthSquared() == 0) {
 			rb->resetSpeed();
-		}
-		else 
+		} else 
 			rb->addForce(appliedForce);
 	}
 }
 
-void PlayerController::updateDirVec()
-{
+void PlayerController::updateDirVec() {
 	if (rb) {
 		dirVec.SetZero();
 
@@ -53,8 +48,7 @@ void PlayerController::updateDirVec()
 
 			float speedDif = (dirVec - rb->getBody()->GetLinearVelocity()).Length();
 			appliedForce = 10 * speedDif * (dirVec - rb->getBody()->GetLinearVelocity());
-		}
-		else {
+		} else {
 			appliedForce.SetZero();
 		}
 	}

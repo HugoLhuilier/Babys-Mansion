@@ -12,12 +12,16 @@
             "scaleInDock": 3,
             "scaleInEditor": 1
         },
+        "lanterne.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "test.tmx": {
-            "scale": 1,
-            "selectedLayer": 2,
+            "scale": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 275.5,
-                "y": 1036.5
+                "x": 1382.75,
+                "y": 763.75
             }
         }
     },
@@ -28,12 +32,14 @@
     "map.width": 20,
     "openFiles": [
         "4 BigSet bon.tsx",
-        "test.tmx"
+        "test.tmx",
+        "lanterne.tsx"
     ],
     "project": "test.tiled-project",
     "recentFiles": [
-        "test.tmx",
-        "4 BigSet bon.tsx"
+        "4 BigSet bon.tsx",
+        "lanterne.tsx",
+        "test.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
