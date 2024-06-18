@@ -186,14 +186,12 @@ void Game::reloadGame() {
 }
 
 void Game::update() {
-//update tous les composants selon le design pattern "observer"
 	for (auto& comp : compUpdateListeners) {
 		comp->update();
 	}
 }
 
 void Game::addCompUpdateListener(Component* listener) {
-//ajoute les composants � la liste des "subscribers" du design pattern observer
 	compUpdateListeners.push_back(listener);
 }
 
@@ -253,7 +251,6 @@ void Game::buildScene() {
 }
 
 void Game::drawSprites() {
-	//dessiner un sprite
 	for (auto& layer : spriteLayers) {
 		layer.second->renderSprite();
 	}

@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "box2d/box2d.h"
 
+/*
+* State active when the baby follows the player
+*/
 class FollowingState : public BaseState {
 public:
 	void start() override;
