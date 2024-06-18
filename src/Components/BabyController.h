@@ -24,6 +24,7 @@ public:
 	void update() override;
 
 	void switchState(StateTag newState);
+	BaseState* getState() { return curState; }
 
 	float getSpeed() const { return speed; }
 	RigidBody* getRb() const { return rb; }
